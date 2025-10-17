@@ -278,13 +278,15 @@ MCP Clients
 - Additional research APIs
 - Database caching
 
-## Performance Characteristics
+### Performance Characteristics
+
+**Note**: The following are typical response times. Actual performance may vary based on network conditions and API availability.
 
 ### Response Times
 - Mock data: < 100ms
-- API search: 1-3 seconds
-- API analysis: 2-5 seconds
-- Trend summary: 3-7 seconds
+- API search: 1-3 seconds (estimated)
+- API analysis: 2-5 seconds (estimated)
+- Trend summary: 3-7 seconds (estimated)
 
 ### Resource Usage
 - Memory: ~50-100 MB

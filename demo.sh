@@ -30,7 +30,11 @@ echo ""
 echo "================================================"
 echo "Project Structure:"
 echo "================================================"
-tree -L 2 -I 'node_modules|dist' .
+if command -v tree &> /dev/null; then
+    tree -L 2 -I 'node_modules|dist' .
+else
+    find . -maxdepth 2 -not -path './node_modules/*' -not -path './dist/*' -not -path './.git/*' | sort
+fi
 
 echo ""
 echo "================================================"
@@ -148,7 +152,15 @@ echo "================================================"
 echo ""
 
 # Test that the server starts correctly
-timeout 3 node dist/index.js < /dev/null 2>&1 || true
+if command -v timeout &> /dev/null; then
+    timeout 3 node dist/index.js < /dev/null 2>&1 || true
+else
+    # Fallback for systems without timeout command
+    node dist/index.js < /dev/null 2>&1 &
+    SERVER_PID=$!
+    sleep 3
+    kill $SERVER_PID 2>/dev/null || true
+fi
 
 echo ""
 echo -e "${GREEN}✓ Server starts successfully!${NC}"
